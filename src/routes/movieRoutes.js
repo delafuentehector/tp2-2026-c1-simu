@@ -1,4 +1,6 @@
 import express from "express";
+import{ getAllMoviesController, getMovieController } from "../controllers/movieController.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 // TODO (ejercicio 1): importar getAllMoviesController desde movieController.js
 // TODO (ejercicio 2): importar getMovieController y authMiddleware
 // TODO (ejercicio 4): importar getAwardWinnersController
@@ -14,5 +16,8 @@ const router = express.Router();
 // ⚠️ IMPORTANTE: las rutas con path fijo (/winners, /search) deben definirse
 //    ANTES de la ruta dinámica (/:id), porque Express las evalúa en orden.
 //    Si /:id se define primero, "winners" y "search" serán interpretados como un id.
+
+router.get('/', getAllMoviesController);
+router.get("/:id", authMiddleware, getMovieController);
 
 export default router;
